@@ -1,8 +1,21 @@
-#pragma once
-struct Board {
-    enum class CellsChar { VOID_CHAR = ' ', PLAYER_CHAR = '---', BRICK_CHAR = '@', BALL_CHAR = '*', VERICAL_CHAR = '|', HORITZONTALCHAR = '' };
-    CellsChar** board;
-    int NUM_ROWS; //EN FICHERO
-    int NUM_COLUMNS;//EN FICHERO
-    int numberBricks;
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+
+//enum GameState {WIN, LOSE, UNFINISHED, COUNT};
+
+//mapa matriz dinamica, especificadas en el txt, solo habrá información de los limites y las filas de los bloques.
+
+class Board
+{
+public:
+	Board(); //constructor declaration
+	~Board(); //destructor declaration
+	void Debug(); //For debugging things
+	void ReadFile(); 
+	void PrintBoard(); 
+private:
+	int rows, columns, rowsWithBlocks; 
+	char** boardMatrix;
 };
