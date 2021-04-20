@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
 
 		if (inputs.Keyboard[(int)InputKey::LEFT]) {
 			board.ClearPlayerPos(player1.positionX, player1.positionY);
-			player1.positionX--;
+			player1.moveLeft();
 			if (player1.positionX > board.rows - 2) {
 				player1.positionX = 2 ;
 			}
@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
 		}
 		else if (inputs.Keyboard[(int)InputKey::RIGHT]) {
 			board.ClearPlayerPos(player1.positionX, player1.positionY);
-			player1.positionX++;
+			player1.moveRight();
 			if (player1.positionX > board.rows - 2) {
 				player1.positionX = 2;
 			}

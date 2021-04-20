@@ -8,6 +8,13 @@ public:
 		positionX = 10;
 	}
 	~Player() {}
+
+	int moveRight() {
+		return positionX++;
+	}
+	int moveLeft() {
+		return positionX--;
+	}
 	//void playerMovement(int position_x);
 	int positionX, positionY;
 private:
