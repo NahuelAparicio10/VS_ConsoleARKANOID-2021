@@ -1,4 +1,3 @@
-#pragma once
 #include <Windows.h>
 
 enum class InputKey {LEFT, RIGHT, ESCAPE, COUNT};

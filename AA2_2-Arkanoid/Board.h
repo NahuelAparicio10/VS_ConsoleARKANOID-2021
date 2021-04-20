@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include "Player.h"
 
 //enum GameState {WIN, LOSE, UNFINISHED, COUNT};
 
@@ -12,10 +13,15 @@ class Board
 public:
 	Board(); //constructor declaration
 	~Board(); //destructor declaration
+	void setBaseMatrix();
 	void Debug(); //For debugging things
 	void ReadFile(); 
 	void PrintBoard(); 
-private:
+	void ClearPlayerPos(int playerPosX, int playerPosY);
+	void UpdateBoard(int playerPosX, int playerPosY);
 	int rows, columns, rowsWithBlocks; 
+
+
+private:
 	char** boardMatrix;
 };

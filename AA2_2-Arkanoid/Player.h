@@ -2,26 +2,23 @@
 class Player
 {
 public:
-	Player();
-	~Player();
-	void playerMovement(int position_x);
-private:
+	Player() {
+		//position Y is fixed
+		positionY = 17;
+		positionX = 10;
+	}
+	~Player() {}
+	//void playerMovement(int position_x);
 	int positionX, positionY;
+private:
 };
 
-Player::Player()
-{
-	//position Y is fixed
-	positionY = 3;
-}
-
-Player::~Player()
-{
-}
-
+/*
 void Player::playerMovement(int position_x) {
 
 	//si hay limites no se movera, pero debe salir por la otr banda
 
 
 }
+
+*/

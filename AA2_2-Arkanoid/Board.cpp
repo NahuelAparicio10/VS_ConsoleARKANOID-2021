@@ -32,7 +32,6 @@ void Board::ReadFile() {
 	rowsWithBlocks = std::stoi(data[1]);
 }
 
-
 //Debug
 void Board::Debug() {
 	std::cout << rows << std::endl << columns << std::endl << rowsWithBlocks;
@@ -42,14 +41,17 @@ void Board::Debug() {
 Board::Board()
 {
 	ReadFile();
+	//create empty matrix
 	boardMatrix = new char*[rows];
 	for (int i = 0; i <= rows; i++)
 	{
 		boardMatrix[i] = new char[columns];
 	}
+	setBaseMatrix();
+}
 
+void Board::setBaseMatrix() {
 	//initialize the base matrix
-
 	for (int i = 0; i <= rows; i++)
 	{
 		for (int j = 0; j <= columns; j++)
@@ -57,12 +59,24 @@ Board::Board()
 			if (i == 0 || i == rows) boardMatrix[i][j] = '_';
 
 			else if (j == 0 || j == columns) boardMatrix[i][j] = '|';
-			
-			else if((i >= 1 && i <= rowsWithBlocks) && (j !=0 || j != columns )) boardMatrix[i][j] = '@';
+
+			else if ((i >= 1 && i <= rowsWithBlocks) && (j != 0 || j != columns)) boardMatrix[i][j] = '@';
 
 			else boardMatrix[i][j] = ' ';
 		}
 	}
+}
+
+void Board::UpdateBoard(int playerPosX, int playerPosY) {
+	boardMatrix[playerPosY][playerPosX] = '-';
+	boardMatrix[playerPosY][playerPosX+1] = '-';
+	boardMatrix[playerPosY][playerPosX-1] = '-';
+}
+
+void Board::ClearPlayerPos(int playerPosX, int playerPosY) {
+	boardMatrix[playerPosY][playerPosX] = ' ';
+	boardMatrix[playerPosY][playerPosX + 1] = ' ';
+	boardMatrix[playerPosY][playerPosX - 1] = ' ';
 }
 
 void Board::PrintBoard() {
