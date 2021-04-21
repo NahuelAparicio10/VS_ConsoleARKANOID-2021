@@ -47,6 +47,7 @@ Board::Board()
 	{
 		boardMatrix[i] = new char[columns];
 	}
+
 	setBaseMatrix();
 }
 

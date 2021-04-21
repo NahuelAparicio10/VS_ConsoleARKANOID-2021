@@ -58,6 +58,8 @@ MOVES Ball::ChangeDirectionSides(MOVES move) {
 	else if (move == MOVES::UP_LEFT) return MOVES::UP_RIGHT;
 	else if (move == MOVES::DOWN_LEFT) return MOVES::DOWN_RIGHT;
 	else if (move == MOVES::DOWN_RIGHT) return MOVES::DOWN_LEFT;
+	else return MOVES::COUNT;
+
 }
 
 MOVES Ball::ChangeDirectionFloor(MOVES move) {
@@ -65,12 +67,36 @@ MOVES Ball::ChangeDirectionFloor(MOVES move) {
 	else if (move == MOVES::UP_LEFT) return MOVES::DOWN_LEFT;
 	else if (move == MOVES::DOWN_LEFT) return MOVES::UP_LEFT;
 	else if (move == MOVES::DOWN_RIGHT) return MOVES::UP_RIGHT;
+	else return MOVES::COUNT;
 	//lets see
 }
 
 //Detects the collide and changes the direction
 void Ball::CollidedChangeDir(Board board) {
-	if (ballPosY > board.columns - 2 || ballPosX > board.rows - 2) moves = ChangeDirectionSides(moves);
-	
-	else if (ballPosY < 2 || ballPosX < 2)	moves = ChangeDirectionFloor(moves);
+
+	if (ballPosX >= board.rows - 1) {
+		ballPosX = board.rows - 1;
+		moves = ChangeDirectionSides(moves);
+		Move(moves);
+	}
+	else if (ballPosX <= 1) {
+		ballPosX = 1;
+		moves = ChangeDirectionSides(moves);
+		Move(moves);
+	}
+	else if (ballPosY >= board.columns - 1) {
+		ballPosY = board.columns - 1;
+		moves = ChangeDirectionFloor(moves);
+		Move(moves);
+	}
+
+	else if (ballPosY <= 1) {
+		ballPosY = 1;
+		moves = ChangeDirectionFloor(moves);
+		Move(moves);
+	}
+
+
+	else Move(moves);
+
 }

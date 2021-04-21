@@ -6,11 +6,11 @@
 
 //enum GameState {WIN, LOSE, UNFINISHED, COUNT};
 
-
+enum class CELLS {WALL = '|', };
 class Board
 {
 public:
-	Board(); //constructor declaration
+	Board(); //constructor declarati on
 	~Board(); //destructor declaration
 	void setBaseMatrix();
 	void Debug(); //For debugging things
