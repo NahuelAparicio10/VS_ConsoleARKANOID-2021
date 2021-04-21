@@ -67,20 +67,31 @@ void Board::setBaseMatrix() {
 	}
 }
 
-void Board::UpdateBoard(int playerPosX, int playerPosY) {
+void Board::UpdateBoard(int playerPosX, int playerPosY, int ballPosX, int ballPosY) {
+	//Update Player Pos
 	boardMatrix[playerPosY][playerPosX] = '-';
-	boardMatrix[playerPosY][playerPosX+1] = '-';
-	boardMatrix[playerPosY][playerPosX-1] = '-';
+	boardMatrix[playerPosY][playerPosX + 1] = '-';
+	boardMatrix[playerPosY][playerPosX - 1] = '-';
+
+	//Update Ball Pos
+	boardMatrix[ballPosY][ballPosX] = '*';
 }
 
-void Board::ClearPlayerPos(int playerPosX, int playerPosY) {
+void Board::ClearPlayer(int playerPosX, int playerPosY) {
+	//Delete Player Pos
 	boardMatrix[playerPosY][playerPosX] = ' ';
 	boardMatrix[playerPosY][playerPosX + 1] = ' ';
 	boardMatrix[playerPosY][playerPosX - 1] = ' ';
 }
 
+void Board::ClearBall(int ballPosX, int ballPosY) {
+	//Delete Ball Pos
+	boardMatrix[ballPosY][ballPosX] = ' ';
+}
+
+//Print the board *DRAW*
 void Board::PrintBoard() {
-	//print the matrix
+
 	for (int i = 0; i <= rows; i++)
 	{
 		for (int j = 0; j <= columns; j++)

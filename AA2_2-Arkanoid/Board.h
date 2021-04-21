@@ -6,7 +6,6 @@
 
 //enum GameState {WIN, LOSE, UNFINISHED, COUNT};
 
-//mapa matriz dinamica, especificadas en el txt, solo habrá información de los limites y las filas de los bloques.
 
 class Board
 {
@@ -17,8 +16,9 @@ public:
 	void Debug(); //For debugging things
 	void ReadFile(); 
 	void PrintBoard(); 
-	void ClearPlayerPos(int playerPosX, int playerPosY);
-	void UpdateBoard(int playerPosX, int playerPosY);
+	void ClearPlayer(int playerPosX, int playerPosY);
+	void ClearBall(int BallPosX, int BallPosY);
+	void UpdateBoard(int playerPosX, int playerPosY, int ballPosX, int ballPosY);
 	int rows, columns, rowsWithBlocks; 
 
 

@@ -15,17 +15,7 @@ public:
 	int moveLeft() {
 		return positionX--;
 	}
-	//void playerMovement(int position_x);
 	int positionX, positionY;
 private:
 };
 
-/*
-void Player::playerMovement(int position_x) {
-
-	//si hay limites no se movera, pero debe salir por la otr banda
-
-
-}
-
-*/
