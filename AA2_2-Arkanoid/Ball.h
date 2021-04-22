@@ -1,5 +1,4 @@
 #pragma once
-
 enum class MOVES { UP_RIGHT, UP_LEFT, DOWN_RIGHT, DOWN_LEFT, COUNT };
 
 class Ball
@@ -7,14 +6,23 @@ class Ball
 public:
 	Ball();
 	~Ball();
-	void Move(MOVES move);
-	void CollidedChangeDir(Board board);
-	MOVES ChangeDirectionSides(MOVES move);
-	MOVES ChangeDirectionFloor(MOVES move);
+	void CollidedChangeDir(Board board, Player player);
 	MOVES moves;
 	int ballPosX, ballPosY;
 
+
 private:
+	//moves the ball
+	void Move(MOVES move);
+
+	//Change direction of the Ball
+	MOVES ChangeDirectionSides();
+	MOVES ChangeDirectionFloor();
+
+	//CollidersCheck
+	bool CheckMinCollide(int ballPos, int val);
+	bool CheckMaxCollide(int ballPos, int val);
+	bool BallCheckPlayerCollide(Player player);
 };
 
 Ball::Ball()
@@ -53,50 +61,56 @@ void Ball::Move(MOVES move) {
 	}
 }
 
-MOVES Ball::ChangeDirectionSides(MOVES move) {
-	if (move == MOVES::UP_RIGHT) return MOVES::UP_LEFT;
-	else if (move == MOVES::UP_LEFT) return MOVES::UP_RIGHT;
-	else if (move == MOVES::DOWN_LEFT) return MOVES::DOWN_RIGHT;
-	else if (move == MOVES::DOWN_RIGHT) return MOVES::DOWN_LEFT;
+MOVES Ball::ChangeDirectionSides() {
+	if (moves == MOVES::UP_RIGHT) return MOVES::UP_LEFT;
+	else if (moves == MOVES::UP_LEFT) return MOVES::UP_RIGHT;
+	else if (moves == MOVES::DOWN_LEFT) return MOVES::DOWN_RIGHT;
+	else if (moves == MOVES::DOWN_RIGHT) return MOVES::DOWN_LEFT;
 	else return MOVES::COUNT;
-
 }
 
-MOVES Ball::ChangeDirectionFloor(MOVES move) {
-	if (move == MOVES::UP_RIGHT) return MOVES::DOWN_RIGHT;
-	else if (move == MOVES::UP_LEFT) return MOVES::DOWN_LEFT;
-	else if (move == MOVES::DOWN_LEFT) return MOVES::UP_LEFT;
-	else if (move == MOVES::DOWN_RIGHT) return MOVES::UP_RIGHT;
+MOVES Ball::ChangeDirectionFloor() {
+	if (moves == MOVES::UP_RIGHT) return MOVES::DOWN_RIGHT;
+	else if (moves == MOVES::UP_LEFT) return MOVES::DOWN_LEFT;
+	else if (moves == MOVES::DOWN_LEFT) return MOVES::UP_LEFT;
+	else if (moves == MOVES::DOWN_RIGHT) return MOVES::UP_RIGHT;
 	else return MOVES::COUNT;
-	//lets see
 }
 
 //Detects the collide and changes the direction
-void Ball::CollidedChangeDir(Board board) {
+void Ball::CollidedChangeDir(Board board, Player player) {
 
-	if (ballPosX >= board.rows - 1) {
+	if (CheckMaxCollide(ballPosX, board.rows - 1)) {
 		ballPosX = board.rows - 1;
-		moves = ChangeDirectionSides(moves);
+		moves = ChangeDirectionSides();
 		Move(moves);
 	}
-	else if (ballPosX <= 1) {
+	else if (CheckMinCollide(ballPosX, 1)) {
 		ballPosX = 1;
-		moves = ChangeDirectionSides(moves);
+		moves = ChangeDirectionSides();
 		Move(moves);
 	}
-	else if (ballPosY >= board.columns - 1) {
+	else if (CheckMaxCollide(ballPosY, board.columns - 1)) {
 		ballPosY = board.columns - 1;
-		moves = ChangeDirectionFloor(moves);
+		moves = ChangeDirectionFloor();
 		Move(moves);
 	}
-
-	else if (ballPosY <= 1) {
+	else if (CheckMinCollide(ballPosY, 1)) {
 		ballPosY = 1;
-		moves = ChangeDirectionFloor(moves);
+		moves = ChangeDirectionFloor();
 		Move(moves);
 	}
-
+	else if (BallCheckPlayerCollide(player)) {
+		moves = ChangeDirectionFloor();
+		Move(moves);
+	}
 
 	else Move(moves);
 
 }
+
+bool Ball::CheckMaxCollide(int ballPos, int val) { return ballPos >= val ? true : false; }
+
+bool Ball::CheckMinCollide(int ballPos, int val) { return ballPos <= val ? true : false; }
+
+bool Ball::BallCheckPlayerCollide(Player player) { return ((ballPosX == player.positionX - 1 || ballPosX == player.positionX || ballPosX == player.positionX + 1) && ballPosY >= player.positionY) ? true : false; }

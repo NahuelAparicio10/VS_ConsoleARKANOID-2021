@@ -16,6 +16,5 @@ public:
 		return positionX--;
 	}
 	int positionX, positionY;
-private:
 };
 

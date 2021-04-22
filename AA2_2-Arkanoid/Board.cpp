@@ -7,7 +7,6 @@ void Board::ReadFile() {
 	std::ifstream file;
 
 	file.open("config.txt"); 
-
 	//If the file can not be opened, stop the game execution
 	if (file.fail()) {
 		std::cout << "config is not available";
@@ -18,9 +17,7 @@ void Board::ReadFile() {
 
 		while (getline(file, line)) {
 			std::stringstream ss(line);
-			if (getline(ss, line, ';')) {
-				data.push_back(line); //save the data to vector
-			}
+			if (getline(ss, line, ';'))	data.push_back(line); //save the data to vector
 		}
 	}
 	
@@ -32,37 +29,25 @@ void Board::ReadFile() {
 	rowsWithBlocks = std::stoi(data[1]);
 }
 
-//Debug
-void Board::Debug() {
-	std::cout << rows << std::endl << columns << std::endl << rowsWithBlocks;
-}
-
 //Default Constructor
 Board::Board()
 {
 	ReadFile();
 	//create empty matrix
 	boardMatrix = new char*[rows];
-	for (int i = 0; i <= rows; i++)
-	{
-		boardMatrix[i] = new char[columns];
-	}
-
-	setBaseMatrix();
+	for (int i = 0; i <= rows; i++)	boardMatrix[i] = new char[columns];
+	SetBaseMatrix();
 }
 
-void Board::setBaseMatrix() {
+void Board::SetBaseMatrix() {
 	//initialize the base matrix
 	for (int i = 0; i <= rows; i++)
 	{
 		for (int j = 0; j <= columns; j++)
 		{
 			if (i == 0 || i == rows) boardMatrix[i][j] = '_';
-
 			else if (j == 0 || j == columns) boardMatrix[i][j] = '|';
-
 			else if ((i >= 1 && i <= rowsWithBlocks) && (j != 0 || j != columns)) boardMatrix[i][j] = '@';
-
 			else boardMatrix[i][j] = ' ';
 		}
 	}
