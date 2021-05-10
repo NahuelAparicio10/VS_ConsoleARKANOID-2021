@@ -51,43 +51,20 @@ void Board::SetBaseMatrix() {
 		{
 			if (i == 0 || i == rows) boardMatrix[i][j] = '_';
 			else if (j == 0 || j == columns) boardMatrix[i][j] = '|';
-			else if ((i >= 1 && i <= rowsWithBlocks) && (j != 0 || j != columns)) boardMatrix[i][j] = '@';
+			else if ((i >= 0 && i <= rowsWithBlocks) && (j != 0 || j != columns)) boardMatrix[i][j] = '@';
 			else boardMatrix[i][j] = ' ';
 		}
 	}
 }
 
-void Board::UpdateBoard(Player actualPlayer, int ballPosY, int ballPosX, InputData actualInputs) {
+void Board::UpdateBoard(int playerPosY, int playerPosX, int ballPosY, int ballPosX) {
 	//Update Player Pos
-	boardMatrix[actualPlayer.pos.posY][actualPlayer.pos.posX] = '-';
-	boardMatrix[actualPlayer.pos.posY][actualPlayer.pos.posX + 1] = '-';
-	boardMatrix[actualPlayer.pos.posY][actualPlayer.pos.posX - 1] = '-';
+	boardMatrix[playerPosY][playerPosX] = '-';
+	boardMatrix[playerPosY][playerPosX + 1] = '-';
+	boardMatrix[playerPosY][playerPosX - 1] = '-';
 
 	//Update Ball Pos
 	boardMatrix[ballPosY][ballPosX] = '*';
-
-	//Update player movement by inputs from the user
-
-	if (actualInputs.Keyboard[(int)InputKey::LEFT]) {
-		ClearPlayer(actualPlayer.pos.posY, actualPlayer.pos.posX);
-		actualPlayer.moveLeft();
-		if (actualPlayer.pos.posX > rows - 2) actualPlayer.pos.posX = 2;
-		else if (actualPlayer.pos.posX < 2) actualPlayer.pos.posX = rows - 2;
-	}
-
-	else if (actualInputs.Keyboard[(int)InputKey::RIGHT]) {
-		ClearPlayer(actualPlayer.pos.posY, actualPlayer.pos.posX);
-		actualPlayer.moveRight();
-		if (actualPlayer.pos.posX > rows - 2) actualPlayer.pos.posX = 2;
-		else if (actualPlayer.pos.posX < 2) actualPlayer.pos.posX = rows - 2;
-	}
-}
-
-void Board::ClearPlayer(int posY, int posX) {
-	//Clear Player Pos
-	boardMatrix[posY][posX] = ' ';
-	boardMatrix[posY][posX + 1] = ' ';
-	boardMatrix[posY][posX - 1] = ' ';
 }
 
 void Board::ClearBall(int posY, int posX) {
@@ -97,7 +74,6 @@ void Board::ClearBall(int posY, int posX) {
 
 //Print the board *DRAW*
 void Board::PrintBoard() {
-
 	for (int i = 0; i <= rows; i++)
 	{
 		for (int j = 0; j <= columns; j++)

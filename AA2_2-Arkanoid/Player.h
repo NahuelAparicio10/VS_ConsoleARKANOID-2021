@@ -1,16 +1,21 @@
 #pragma once
 #include "Vector.h"
+#include "Board.h"
 class Player
 {
 public:
-	Player() {
-		pos.posY = 17;
-		pos.posX = 10;
-	}
-	~Player() {}
+	Player();
+	~Player();
 
-	int moveRight() {	return pos.posX++;	}
-	int moveLeft() {	return pos.posY--;	}
+	int moveRight();
+	int moveLeft();
+
+	void UpdateLeft(Board currentBoard);
+	void UpdateRight(Board currentBoard);
+
 	Vec2 pos;
+
+private:
+	void ClearPlayer(Board currentBoard);
 };
 

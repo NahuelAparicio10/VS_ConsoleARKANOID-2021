@@ -1,6 +1,6 @@
 #pragma once
 #include "Player.h"
-#include "Board.h"
+
 enum class MOVES { UP_RIGHT, UP_LEFT, DOWN_RIGHT, DOWN_LEFT, COUNT };
 
 class Ball
@@ -8,13 +8,13 @@ class Ball
 public:
 	Ball();
 	~Ball();
-	void CollidedChangeDir(Board, Player);
+	void CollidedChangeDir(Board actualBoard, Player);
 	MOVES moves;
 	Vec2 pos;
-
-private:
 	//moves the ball
 	void Move(MOVES move);
+
+private:
 
 	//Change direction of the Ball
 	MOVES ChangeDirectionSides();

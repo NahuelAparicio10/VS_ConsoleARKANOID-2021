@@ -56,25 +56,26 @@ MOVES Ball::ChangeDirectionFloor() {
 void Ball::CollidedChangeDir(Board actualBoard, Player actualPlayer) {
 
 	if (CheckMaxCollide(pos.posX, actualBoard.rows - 1)) {
-		pos.posY = actualBoard.rows - 1;
+		pos.posX = actualBoard.rows - 1;
 		moves = ChangeDirectionSides();
 		Move(moves);
 	}
 	else if (CheckMinCollide(pos.posY, 1)) {
 		pos.posY = 1;
-		moves = ChangeDirectionSides();
+		moves = ChangeDirectionFloor();
 		Move(moves);
 	}
-	else if (CheckMaxCollide(pos.posX, actualBoard.columns - 1)) {
+	else if (CheckMaxCollide(pos.posY, actualBoard.columns - 1)) {
 		pos.posY = actualBoard.columns - 1;
 		moves = ChangeDirectionFloor();
 		Move(moves);
 	}
-	else if (CheckMinCollide(pos.posY, 1)) {
-		pos.posY = 1;
-		moves = ChangeDirectionFloor();
+	else if (CheckMinCollide(pos.posX, 1)) {
+		pos.posX = 1;
+		moves = ChangeDirectionSides();
 		Move(moves);
 	}
+
 	else if (BallCheckPlayerCollide(actualPlayer)) {
 		moves = ChangeDirectionFloor();
 		Move(moves);

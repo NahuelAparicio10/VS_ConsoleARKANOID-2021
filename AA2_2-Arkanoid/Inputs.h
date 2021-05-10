@@ -19,6 +19,4 @@ struct InputData {
 - A vegades les col·lisions experimenten rebots no esperats contra la 
 plataforma. 
 
-- Per ser més correcte la lògica del moviment de la plataforma 
-s’ha de calcular dins de la classe plataforma i no al main.
 */
