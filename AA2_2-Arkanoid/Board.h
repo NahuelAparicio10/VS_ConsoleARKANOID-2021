@@ -1,25 +1,25 @@
+#pragma once
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include "Player.h"
-
-
+#include "Ball.h"
+#include "Inputs.h"
 
 class Board
 {
 public:
 	Board(); //constructor declaration
 	~Board(); //destructor declaration
-	void SetBaseMatrix();
-	void ReadFile(); 
 	void PrintBoard(); 
-	void ClearPlayer(int playerPosX, int playerPosY);
-	void ClearBall(int BallPosX, int BallPosY);
-	void UpdateBoard(int playerPosX, int playerPosY, int ballPosX, int ballPosY);
+	void ClearPlayer(int posY, int posX);
+	void ClearBall(int posY, int posX);
+	void UpdateBoard(Player, int ballPosY, int ballPosX, InputData);
 	int rows, columns, rowsWithBlocks; 
 
 
 private:
+	void SetBaseMatrix();
+	void ReadFile(); 
 	char** boardMatrix;
 };
