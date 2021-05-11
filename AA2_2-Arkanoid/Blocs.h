@@ -1,10 +1,10 @@
 #pragma once
-
+#include <queue>
 class Block {
 public:
-	int value;
-	char draw;
-
-	int SetValue();
+	std::queue<int> values;
+	Block(int, int, int);
+	~Block();
+	void SetValue(int, int);
 	int GetValue();
 };

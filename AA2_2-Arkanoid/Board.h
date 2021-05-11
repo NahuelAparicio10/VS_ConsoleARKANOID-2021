@@ -4,6 +4,8 @@
 #include <sstream>
 #include <vector>
 
+enum class CellType : char { EMPTY = ' ', FLOOR = '_', WALL = '|', BLOCK = '@', PLAYER = '-', BALL = '*'};
+
 class Board
 {
 public:
@@ -12,9 +14,12 @@ public:
 	void PrintBoard(); 
 	void ClearBall(int posY, int posX);
 	void UpdateBoard(int playerPosY, int playerPosX, int ballPosY, int ballPosX);
+	char CellToChar(CellType currentCell);
+
+	//Vars
 	int rows, columns, rowsWithBlocks; 
 	int blockVal1, blockVal2; // TEMP FOR RANDOM VALUE TO BLOCK CLASS
-	char** boardMatrix;
+	CellType** boardMatrix;
 
 private:
 	void SetBaseMatrix();

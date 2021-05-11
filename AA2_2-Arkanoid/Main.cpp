@@ -1,6 +1,7 @@
 // actualització sleep -> miliseconds (windows.h)
 #pragma once
 #include "Inputs.h"
+#include "Blocs.h"
 #include "Ball.h"
 #include "Score.h"
 #include "GameState.h"
@@ -13,7 +14,10 @@ int main(int argc, char *argv[]) {
 	Ball ball;
 	GameStateC gameState;
 	InputData inputs;
+	Block blocks(board.blockVal1, board.blockVal2, (board.rowsWithBlocks * (board.rows - 2)));
 	
+
+
 	while (gameState.gState == GameState::PLAYING) {
 		//--INPUTS
 		inputs.Update(); 

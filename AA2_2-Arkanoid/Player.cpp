@@ -22,9 +22,9 @@ void Player::UpdateRight(Board currentBoard) {
 }
 
 void Player::ClearPlayer(Board cBoard) {
-	cBoard.boardMatrix[pos.posY][pos.posX] = ' ';
-	cBoard.boardMatrix[pos.posY][pos.posX + 1] = ' ';
-	cBoard.boardMatrix[pos.posY][pos.posX - 1] = ' ';
+	cBoard.boardMatrix[pos.posY][pos.posX] = CellType::EMPTY;
+	cBoard.boardMatrix[pos.posY][pos.posX + 1] = CellType::EMPTY;
+	cBoard.boardMatrix[pos.posY][pos.posX - 1] = CellType::EMPTY;
 }
 
 int Player::moveRight() { return pos.posX++; }

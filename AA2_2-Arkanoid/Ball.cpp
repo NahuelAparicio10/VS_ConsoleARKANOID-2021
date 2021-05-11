@@ -86,7 +86,5 @@ void Ball::CollidedChangeDir(Board actualBoard, Player actualPlayer) {
 }
 
 bool Ball::CheckMaxCollide(int ballPos, int val) { return ballPos >= val ? true : false; }
-
 bool Ball::CheckMinCollide(int ballPos, int val) { return ballPos <= val ? true : false; }
-
 bool Ball::BallCheckPlayerCollide(Player player) { return ((pos.posX == player.pos.posX - 1 || pos.posX == player.pos.posX || pos.posX == player.pos.posX + 1) && pos.posX >= player.pos.posX) ? true : false; }
