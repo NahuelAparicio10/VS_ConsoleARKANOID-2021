@@ -6,10 +6,12 @@ class GameStateC
 public:
 	GameStateC();
 	~GameStateC();
-	GameState GetLose();
-	GameState GetWin();
-	GameState GetExit();
+	void SetLose();
+	void SetWin();
+	void SetExit();
 	GameState gState;
+	bool CheckWin();
+	bool CheckLoose(int, int);
 
 private:
 };
@@ -18,9 +20,12 @@ GameStateC::GameStateC() { gState = GameState::PLAYING; }
 
 GameStateC::~GameStateC() {}
 
-GameState GameStateC::GetWin() { return GameState::WIN; }
+void GameStateC::SetWin() { gState = GameState::WIN; }
 
-GameState GameStateC::GetExit() { return GameState::EXIT; }
+void GameStateC::SetExit() { gState = GameState::EXIT; }
 
-GameState GameStateC::GetLose() { return GameState::LOSE; }
+void GameStateC::SetLose() { gState = GameState::LOSE; }
+
+bool GameStateC::CheckLoose(int ballPosY, int pPosY) { return ballPosY > pPosY ? true : false;  }
+
 

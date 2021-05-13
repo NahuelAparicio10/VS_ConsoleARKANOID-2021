@@ -5,6 +5,7 @@ public:
 	std::queue<int> values;
 	Block(int, int, int);
 	~Block();
-	void SetValue(int, int);
+	void DeleteValue();
+	int SetValue(int, int);
 	int GetValue();
 };

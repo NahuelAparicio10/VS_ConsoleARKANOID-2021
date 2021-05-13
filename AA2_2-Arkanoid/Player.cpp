@@ -10,21 +10,22 @@ Player::~Player() {}
 void Player::UpdateLeft(Board currentBoard) {
 	ClearPlayer(currentBoard);
 	moveLeft();
-	if (pos.posX > currentBoard.rows - 2) pos.posX = 2;
-	else if (pos.posX < 2) pos.posX = currentBoard.rows - 2;
+	if (pos.posX > currentBoard.rows - 2) pos.posX = 3;
+	else if (pos.posX < 2) pos.posX = currentBoard.rows - 3;
 }
 
 void Player::UpdateRight(Board currentBoard) {
 	ClearPlayer(currentBoard);
 	moveRight();
-	if (pos.posX > currentBoard.rows - 2) pos.posX = 2;
-	else if (pos.posX < 2) pos.posX = currentBoard.rows - 2;
+	if (pos.posX > currentBoard.rows - 3) pos.posX = 2;
+	else if (pos.posX < 2) pos.posX = currentBoard.rows - 3;
 }
 
 void Player::ClearPlayer(Board cBoard) {
 	cBoard.boardMatrix[pos.posY][pos.posX] = CellType::EMPTY;
 	cBoard.boardMatrix[pos.posY][pos.posX + 1] = CellType::EMPTY;
 	cBoard.boardMatrix[pos.posY][pos.posX - 1] = CellType::EMPTY;
+
 }
 
 int Player::moveRight() { return pos.posX++; }

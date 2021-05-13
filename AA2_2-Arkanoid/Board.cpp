@@ -6,6 +6,7 @@ Board::Board()
 {
 	ReadFile();
 	SetBaseMatrix();
+	PrintBoard();
 }
 
 Board::~Board() {} //Destructor
@@ -45,13 +46,13 @@ void Board::SetBaseMatrix() {
 	//create empty matrix
 	boardMatrix = new CellType* [rows];
 	//initialize the base matrix
-	for (int i = 0; i <= rows; i++)
+	for (int i = 0; i < rows; i++)
 	{
 		boardMatrix[i] = new CellType[columns];
-		for (int j = 0; j <= columns; j++)
+		for (int j = 0; j < columns; j++)
 		{
-			if (i == 0 || i == rows) boardMatrix[i][j] = CellType::FLOOR;
-			else if (j == 0 || j == columns) boardMatrix[i][j] = CellType::WALL;
+			if (i == 0 || i == rows - 1) boardMatrix[i][j] = CellType::FLOOR;
+			else if (j == 0 || j == columns - 1) boardMatrix[i][j] = CellType::WALL;
 			else if ((i >= 0 && i <= rowsWithBlocks) && (j != 0 || j != columns)) boardMatrix[i][j] = CellType::BLOCK;
 			else boardMatrix[i][j] = CellType::EMPTY;
 		}
@@ -64,6 +65,7 @@ void Board::UpdateBoard(int playerPosY, int playerPosX, int ballPosY, int ballPo
 	boardMatrix[playerPosY][playerPosX + 1] = CellType::PLAYER;
 	boardMatrix[playerPosY][playerPosX - 1] = CellType::PLAYER;
 
+
 	//Update Ball Pos
 	boardMatrix[ballPosY][ballPosX] = CellType::BALL;
 }
@@ -72,13 +74,11 @@ void Board::ClearBall(int posY, int posX) {	boardMatrix[posY][posX] = CellType::
 
 //Print the board *DRAW*
 void Board::PrintBoard() {
-	for (int i = 0; i <= rows; i++)
+	for (int i = 0; i < rows; i++)
 	{
-		for (int j = 0; j <= columns; j++) std::cout << CellToChar(boardMatrix[i][j]);
+		for (int j = 0; j < columns; j++) std::cout << CellToChar(boardMatrix[i][j]);
 		std::cout << std::endl;
 	}
-
-	std::cout << blockVal1 << std::endl << blockVal2;
 }
 
 char Board::CellToChar(CellType currentCell) {

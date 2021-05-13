@@ -1,5 +1,7 @@
 #pragma once
 #include "Player.h"
+#include "Blocs.h"
+#include "Score.h"
 
 enum class MOVES { UP_RIGHT, UP_LEFT, DOWN_RIGHT, DOWN_LEFT, COUNT };
 
@@ -8,11 +10,14 @@ class Ball
 public:
 	Ball();
 	~Ball();
-	void CollidedChangeDir(Board actualBoard, Player);
+	void BallCheckCollide(CellType, Board);
+
 	MOVES moves;
 	Vec2 pos;
 	//moves the ball
 	void Move(MOVES move);
+	void MoveBall(Board, Player);
+	CellType GetNextPos(Board);
 
 private:
 
@@ -21,7 +26,5 @@ private:
 	MOVES ChangeDirectionFloor();
 
 	//CollidersCheck
-	bool CheckMinCollide(int ballPos, int val);
-	bool CheckMaxCollide(int ballPos, int val);
 	bool BallCheckPlayerCollide(Player player);
 };
