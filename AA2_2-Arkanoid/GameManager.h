@@ -19,8 +19,10 @@ public:
 	void ReadRankingFile();
 	void SaveRanking();
 	void ShowRanking();
+	void ChangeSpeed();
 
 	std::map<int, std::string> ranking;
+	int maxBlocs, sleepRate;
 	Player player;
 	Board board;
 	Score score;

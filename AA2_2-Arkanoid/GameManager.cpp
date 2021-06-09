@@ -4,10 +4,24 @@
 GameManager::GameManager() {	
 	blocks.SetBaseValues(board.blockVal1, board.blockVal2, (board.rowsWithBlocks * (board.rows - 2)));	
 	ReadRankingFile();
+	maxBlocs = blocks.values.size();
+	sleepRate = 100;
 }
 
 //GM Destructor
 GameManager::~GameManager() {}
+
+void GameManager::ChangeSpeed() 
+{
+	//100 % dels blocs : 100 mil·lisegons.
+	//	 75 % dels blocs : 85 mil·lisegons.
+	//	 50 % dels blocs : 70 mil·lisegons.
+	//	25 % dels blocs : 60 mil·lisegons
+	int temp = (blocks.values.size() * 100) / maxBlocs;
+	if (temp <= 75 && temp >= 50) sleepRate = 85;
+	else if (temp < 50 && temp >= 25) sleepRate = 70;
+	else if (temp < 25) sleepRate = 60;
+}
 
 void GameManager::Menu() 
 {
@@ -29,6 +43,8 @@ void GameManager::Play() {
 
 	board.UpdateBoard(player.pos.posY, player.pos.posX, ball.pos.posY, ball.pos.posX);
 	
+	ChangeSpeed();
+
 	//**** DRAW ****//
 	score.DrawScore();
 	player.DrawLives();

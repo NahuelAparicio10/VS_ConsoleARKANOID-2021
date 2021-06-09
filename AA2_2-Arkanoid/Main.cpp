@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
 
 				//**** DRAW ****//
 				myGM.Menu();
-				Sleep(50); 
+				Sleep(100); 
 				break;
 
 			case GameState::PLAY:
@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
 				//**** CHECK ****//
 				if (myGM.blocks.values.empty()) myGS = GameState::SCORE;
 				if (myGM.player.lifes <= 0) myGS = GameState::SCORE;
-				Sleep(100);
+				Sleep(myGM.sleepRate);
 				break;
 		
 			case GameState::SCORE:
@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
 
 				myGM.PlayScore();
 				myGS = GameState::RANKING;
-				Sleep(50);
+				Sleep(100);
 				break;
 		
 			case GameState::RANKING:
@@ -66,7 +66,7 @@ int main(int argc, char *argv[]) {
 				//*** DRAW ***//
 				myGM.SortRanking(myGM.ranking);
 				myGM.ShowRanking();
-				Sleep(50);
+				Sleep(100);
 				break;
 		
 			case GameState::EXIT:
