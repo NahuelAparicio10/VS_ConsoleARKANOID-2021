@@ -11,18 +11,6 @@ GameManager::GameManager() {
 //GM Destructor
 GameManager::~GameManager() {}
 
-void GameManager::ChangeSpeed() 
-{
-	//100 % dels blocs : 100 mil·lisegons.
-	//	 75 % dels blocs : 85 mil·lisegons.
-	//	 50 % dels blocs : 70 mil·lisegons.
-	//	25 % dels blocs : 60 mil·lisegons
-	int temp = (blocks.values.size() * 100) / maxBlocs;
-	if (temp <= 75 && temp >= 50) sleepRate = 85;
-	else if (temp < 50 && temp >= 25) sleepRate = 70;
-	else if (temp < 25) sleepRate = 60;
-}
-
 void GameManager::Menu() 
 {
 	std::cout << "~*~*~*- MENU -*~*~*~" << std::endl;
@@ -42,8 +30,6 @@ void GameManager::Play() {
 	if (ball.GetNextPos(board) == CellType::BLOCK) { score.SetScore(blocks.GetValue()); }
 
 	board.UpdateBoard(player.pos.posY, player.pos.posX, ball.pos.posY, ball.pos.posX);
-	
-	ChangeSpeed();
 
 	//**** DRAW ****//
 	score.DrawScore();
@@ -68,10 +54,18 @@ void GameManager::PlayScore() {
 	std::string tempName;
 	std::cout << "Enter your name: " << std::endl;
 	std::cin >> tempName;
-	
+
 	//add current player info to map 
 	ranking.insert(std::pair<int, std::string>(score.GetScore(), tempName));
 }
+
+void GameManager::ShowRanking() {
+	std::cout << "~*~*~*- RANKING -*~*~*~" << std::endl;
+	for (auto it = ranking.rbegin(); it != ranking.rend(); ++it)
+		std::cout << it->second << ' ' << it->first << std::endl;
+}
+
+void GameManager::Exit() { exit(1); }
 
 void GameManager::SaveRanking() {
 	std::ofstream rankingFile;
@@ -122,10 +116,10 @@ void GameManager::SortRanking(std::map<int, std::string> &M)
 	SaveRanking();
 }
 
-void GameManager::ShowRanking() {
-	std::cout << "~*~*~*- RANKING -*~*~*~" << std::endl;
-	for (auto it = ranking.rbegin(); it != ranking.rend(); ++it)
-		std::cout << it->second << ' ' << it->first  << std::endl;
+int GameManager::ChangeSpeed() 
+{
+	int temp = (blocks.values.size() * 100) / maxBlocs;
+	if (temp <= 75 && temp >= 50) return sleepRate = 85;
+	else if (temp < 50 && temp >= 25) return sleepRate = 70;
+	else if (temp < 25) return sleepRate = 60;
 }
-
-void GameManager::Exit() {	exit(1);	}

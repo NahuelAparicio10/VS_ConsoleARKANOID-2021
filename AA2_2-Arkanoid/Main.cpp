@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
 				//**** CHECK ****//
 				if (myGM.blocks.values.empty()) myGS = GameState::SCORE;
 				if (myGM.player.lifes <= 0) myGS = GameState::SCORE;
-				Sleep(myGM.sleepRate);
+				Sleep(myGM.ChangeSpeed());
 				break;
 		
 			case GameState::SCORE:

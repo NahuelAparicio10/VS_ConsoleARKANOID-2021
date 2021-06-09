@@ -19,7 +19,7 @@ public:
 	void ReadRankingFile();
 	void SaveRanking();
 	void ShowRanking();
-	void ChangeSpeed();
+	int ChangeSpeed();
 
 	std::map<int, std::string> ranking;
 	int maxBlocs, sleepRate;
