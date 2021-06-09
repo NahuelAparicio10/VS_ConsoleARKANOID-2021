@@ -3,9 +3,10 @@
 class Block {
 public:
 	std::queue<int> values;
-	Block(int, int, int);
+	Block();
 	~Block();
-	void DeleteValue();
+
+	void SetBaseValues(int, int, int);
 	int SetValue(int, int);
 	int GetValue();
 };

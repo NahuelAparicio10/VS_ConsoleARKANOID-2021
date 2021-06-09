@@ -3,6 +3,7 @@
 Player::Player() {
 	pos.posY = 17;
 	pos.posX = 10;
+	lifes = 3;
 }
 
 Player::~Player() {}
@@ -25,8 +26,9 @@ void Player::ClearPlayer(Board cBoard) {
 	cBoard.boardMatrix[pos.posY][pos.posX] = CellType::EMPTY;
 	cBoard.boardMatrix[pos.posY][pos.posX + 1] = CellType::EMPTY;
 	cBoard.boardMatrix[pos.posY][pos.posX - 1] = CellType::EMPTY;
-
 }
+
+void Player::DrawLives() { std::cout << std::endl << std::endl << "Lives ~> " << lifes << std::endl; }
 
 int Player::moveRight() { return pos.posX++; }
 int Player::moveLeft() { return pos.posX--; }

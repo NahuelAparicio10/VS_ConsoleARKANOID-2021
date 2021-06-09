@@ -1,54 +1,84 @@
 // actualització sleep -> miliseconds (windows.h)
 #pragma once
 #include "Inputs.h"
-#include "Blocs.h"
-#include "Ball.h"
-#include "Score.h"
-#include "GameState.h"
+#include "GameManager.h"
+
+enum class GameState { MENU, PLAY, SCORE, RANKING, EXIT };
 
 int main(int argc, char *argv[]) {
 	
-	Player player;
-	Score score;
-	Board board;
-	Ball ball;
-	GameStateC gameState;
+	GameState myGS = GameState::MENU;
+	GameManager myGM;
 	InputData inputs;
-	Block blocks(board.blockVal1, board.blockVal2, (board.rowsWithBlocks * (board.rows - 2)));
-	
-	
-	while (gameState.gState == GameState::PLAYING) {
-		//--INPUTS
-		inputs.Update(); 
-		//--UPDATE
-		if (inputs.Keyboard[(int)InputKey::LEFT]) { player.UpdateLeft(board); }
-		else if (inputs.Keyboard[(int)InputKey::RIGHT]) { player.UpdateRight(board);  }
-		else if (inputs.Keyboard[(int)InputKey::ESCAPE]) gameState.SetExit();
+
+	do {
+		switch (myGS)
+		{
 		
-		board.ClearBall(ball.pos.posY, ball.pos.posX);
+			case GameState::MENU:
+				//**** INPUTS ****//
+				inputs.Update();
 
-		ball.MoveBall(board, player);
+				//**** UPDATE ****//
+				if (inputs.Keyboard[(int)InputKey::GAME]) myGS = GameState::PLAY;
+				else if (inputs.Keyboard[(int)InputKey::RANK]) myGS = GameState::RANKING;
+				else if (inputs.Keyboard[(int)InputKey::LEAVE]) myGS = GameState::EXIT;
 
-		if (ball.GetNextPos(board) == CellType::BLOCK) { score.SetScore(blocks.GetValue()); }
+				//**** DRAW ****//
+				myGM.Menu();
+				Sleep(50); 
+				break;
 
-		board.UpdateBoard(player.pos.posY, player.pos.posX, ball.pos.posY, ball.pos.posX);
+			case GameState::PLAY:
 
-		//--DRAW
+				//**** INPUTS ****//
+				inputs.Update();
+
+				//**** UPDATE ****//
+				if (inputs.Keyboard[(int)InputKey::LEFT]) { myGM.player.UpdateLeft(myGM.board); }
+				else if (inputs.Keyboard[(int)InputKey::RIGHT]) { myGM.player.UpdateRight(myGM.board); }
+				else if (inputs.Keyboard[(int)InputKey::ESCAPE]) myGS = GameState::EXIT;
+				else if (inputs.Keyboard[(int)InputKey::LEAVE]) myGS = GameState::SCORE;
+			
+				myGM.Play();
+
+				//**** CHECK ****//
+				if (myGM.blocks.values.empty()) myGS = GameState::SCORE;
+				if (myGM.player.lifes <= 0) myGS = GameState::SCORE;
+				Sleep(100);
+				break;
+		
+			case GameState::SCORE:
+				//*** INPUTS ***//
+				inputs.Update();
+				if (inputs.Keyboard[(int)InputKey::ESCAPE]) myGS = GameState::EXIT;
+
+				myGM.PlayScore();
+				myGS = GameState::RANKING;
+				Sleep(50);
+				break;
+		
+			case GameState::RANKING:
+				//*** INPUTS ***//
+				inputs.Update();
+				if (inputs.Keyboard[(int)InputKey::ESCAPE]) myGS = GameState::MENU;
+			
+				//*** DRAW ***//
+				myGM.SortRanking(myGM.ranking);
+				myGM.ShowRanking();
+				Sleep(50);
+				break;
+		
+			case GameState::EXIT:
+				myGM.Exit();
+				break;
+
+			default:
+				break;
+		}
 		system("cls");
-		score.DrawScore();
 
-		board.PrintBoard();
+	} while (myGS != GameState::EXIT);
 
-		//--CHECK
-		if (gameState.CheckLoose(ball.pos.posY, player.pos.posY)) gameState.SetLose();
-		if (blocks.values.empty()) gameState.SetWin();
-		Sleep(100);
-	}
-
-	if (gameState.gState == GameState::LOSE) std::cout << std::endl << "~~YOU LOSED~~" << std::endl;
-	else if (gameState.gState == GameState::WIN) {
-		std::cout << std::endl << "~~YOU WIN~~" << std::endl;
-		score.DrawScore();
-	}
 }
 

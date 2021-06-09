@@ -17,6 +17,7 @@ public:
 	//moves the ball
 	void Move(MOVES move);
 	void MoveBall(Board, Player);
+	void ResetBallOnDie();
 	CellType GetNextPos(Board);
 
 private:

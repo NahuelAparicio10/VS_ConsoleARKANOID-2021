@@ -65,7 +65,6 @@ void Board::UpdateBoard(int playerPosY, int playerPosX, int ballPosY, int ballPo
 	boardMatrix[playerPosY][playerPosX + 1] = CellType::PLAYER;
 	boardMatrix[playerPosY][playerPosX - 1] = CellType::PLAYER;
 
-
 	//Update Ball Pos
 	boardMatrix[ballPosY][ballPosX] = CellType::BALL;
 }

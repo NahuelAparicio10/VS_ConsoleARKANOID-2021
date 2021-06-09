@@ -13,7 +13,10 @@ public:
 	void UpdateLeft(Board currentBoard);
 	void UpdateRight(Board currentBoard);
 
+	void DrawLives();
+
 	Vec2 pos;
+	int lifes;
 
 private:
 	void ClearPlayer(Board currentBoard);
